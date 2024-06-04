@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear System Solver</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Linear System Solver</h1>
+        <form method="post">
+            <label for="variables">Number of variables:</label>
+            <input type="number" id="variables" name="variables" min="2" required>
+            <div id="matrix-inputs"></div>
+            <div id="vector-input"></div>
+            <button type="button" onclick="generateInputs()">Generate Inputs</button>
+            <button type="submit">Solve</button>
+        </form>
+        {% if solution is defined %}
+        <h2>Solution:</h2>
+        <p>{{ solution }}</p>
+        {% elif error is defined %}
+        <h2>Error:</h2>
+        <p>{{ error }}</p>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+</body>
+
+</html>
