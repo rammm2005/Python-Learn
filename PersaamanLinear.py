@@ -1,21 +1,22 @@
-import numpy as nps
+import numpy as np
 
-def solve_linear_equations(A, B) :
+def solve_linear_equations(A, b):
     """
     Menyelesaikan sistem persamaan linear Ax = b
     :param A: Matriks koefisien (numpy array)
     :param b: Vektor konstanta (numpy array)
-    :return: Vektor solusi x (numpy array)
+    :return: Vektor solusi x (numpy array) atau pesan kesalahan
     """
-    try :
-        x = nps.linalg.solve(A, B);
-        return x;
-    except nps.linalg.LinAlgError as e :
-        print("Error dalam menyelesaikan sistem persamaan linear:", e)
-        return None
-    
-    
-    
+    try:
+        det_A = np.linalg.det(A)
+        if np.isclose(det_A, 0):
+            return "Singular matrix"
+        else:
+            x = np.linalg.solve(A, b)
+            return x
+    except np.linalg.LinAlgError as e:
+        return f"Error dalam menyelesaikan sistem persamaan linear: {e}"
+
 def get_user_input():
     try:
         n = int(input("Masukkan jumlah variabel: "))
@@ -28,32 +29,32 @@ def get_user_input():
                 print(f"Baris ke-{i + 1} harus memiliki {n} elemen.")
                 return None, None
             A.append(row)
-        
+
         print("Masukkan elemen-elemen vektor b:")
         b = list(map(float, input("Masukkan elemen-elemen vektor b (pisahkan dengan spasi): ").split()))
         if len(b) != n:
             print(f"Vektor b harus memiliki {n} elemen.")
             return None, None
-        
-        return nps.array(A), nps.array(b)
+
+        return np.array(A), np.array(b)
     except ValueError as e:
         print("Input tidak valid:", e)
         return None, None
 
 def main():
     A, b = get_user_input()
-    
+
     if A is None or b is None:
         print("Input tidak valid. Program berhenti.")
         return
-    
-    x = solve_linear_equations(A, b)
-    
-    if x is not None:
-        print("Solusi dari sistem persamaan linear adalah:", x)
-    else:
-        print("Tidak dapat menyelesaikan sistem persamaan linear.")
 
-# for call main xixxi
+    result = solve_linear_equations(A, b)
+
+    if isinstance(result, np.ndarray):
+        print("Solusi dari sistem persamaan linear adalah:", result)
+    else:
+        print("Persamaan di atas merupakan persamaan : ", result)
+
+# Panggil main function
 if __name__ == "__main__":
     main()

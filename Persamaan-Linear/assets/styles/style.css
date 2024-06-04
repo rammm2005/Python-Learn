@@ -12,7 +12,7 @@ body {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 1px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
     text-align: center;
 }
@@ -26,11 +26,20 @@ form {
     flex-direction: column;
 }
 
+.form-label{
+    margin-bottom: .3rem;
+}
+
 input {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+input:focus{
+    border: 1.2px solid #ccc !important;
+    box-shadow: 2px 1px 10px rgba(20, 134, 200, 0.76);
 }
 
 button {
